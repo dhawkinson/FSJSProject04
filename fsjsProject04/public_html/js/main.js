@@ -15,6 +15,7 @@
     var computersTurn  = false;               //    is it the computer's turn
     var test           = false;               //    have the name's been properly entered (beginning screen)
     var errMark        = '';                  //    if names don't validate, where to set focus
+    var beginGame      = true;                //    beginning of game indicator
     var endOfGame      = false;               //    end-of-game indicator
     //  define the various states of cell selection
     var selectedCellId = '';                  //    the currently selected cell id
@@ -57,9 +58,9 @@
     startDiv.append(startForm);
 
     //  create error displays
-    var err = document.createElement("p");
-    err.className = 'err';
-    err.innerHTML = "<small>Required: 2 Names or Player 1 & Checkbox checked!</small>";
+    var err = document.createElement("div");
+    err.id = 'err';
+    err.innerHTML = "<p style='color: red; animation: blinker 1s linear infinite;'><small>Required: 2 Names or Player 1 & Checkbox checked!</small></p>";
     startDiv.append(err);
 
     // add the newly created elements and content into the DOM
@@ -80,11 +81,12 @@
 
     function setupGame() {
     //  setup the board, set Ids on game box cells, clear any textContent from previous game
+        beginGame = false;
         $("#start").show();
-        $(".err").hide();
+        $("#err").hide();
         $("#board").hide();
         $("#finish").hide();
-        //  identify cells by id & intiate cells as unplayed
+        //  identify cells by id & initiate cells as un-played
         var lis = document.getElementsByClassName('box');
         for ( var i = 0; i < 9; i++ ) {
             lis[i].id = allCellIds[i];
@@ -101,11 +103,11 @@
     //      neither nameOfPlayer[1] nor nameOfPlayer[2] may be an empty string
     //      if nameOfPlayer[1] is not input - an error is flagged
     //      if nameOfPlayer[2] is not input - one of the following will happen
-    //          'Play the Computer' Checkbox MUST be checked, in which case nameOfPlayer2 is set to 
+    //          'Play the Computer' Checkbox MUST be checked, in which case nameOfPlayer2 is set to
     //          'HAL9000'
     //          OR else an error will be flagged.
-    //              The result being that nameOfPlayer[2] = either another human's name or is forced to 
-    //              'HAL9000' (in honor of 2001 - A Space Oddessy)
+    //              The result being that nameOfPlayer[2] = either another human's name or is forced to
+    //              'HAL9000' (in honor of 2001 - A Space Odyssey)
     //
 
         test = true;                                 //  default setting - Names verified
@@ -130,7 +132,7 @@
         }
         return test;
     }
-    
+
     function playerTurnControl() {
     // player turn control
     //      There are two decisions to make
@@ -160,7 +162,7 @@
             setTimeout(function() {
                 computerPlay();
             },500);
-        } 
+        }
     }
 
     function computerPlay() {
@@ -180,7 +182,7 @@
         // remove class 'unfilled', add class 'filled-2'
         var selectedCell = $('.boxes > li:nth-child('+picked+')');
         selectedCell.removeClass('unfilled').addClass('filled-2');
-   
+
         // update cells played
         updateCell();
         playerTurnControl();
@@ -200,12 +202,12 @@
                 cellsPlayedNow = cellsPlayedTwo;
                 break;
             default:
-                null;
+                alert('whoseTurn = '+whoseTurn);
         }
         tieGame = false;
         //  test for a win
         if ( cellsPlayedNow.length > 2 ) {
-            testForWin();  
+            testForWin();
         }
     }
 
@@ -231,11 +233,11 @@
             if ( matches === 3 ) {
                 isWin = true;
                 break;
-            };
+            }
         }
         // test for end of game
-        if ( isWin ) {  
-            endGame(whoseTurn);                
+        if ( isWin ) {
+            endGame(whoseTurn);
         } else if ( cellsPlayedAll.length === 9 ) {
             tieGame = true;
             whoseTurn = 0;
@@ -272,7 +274,7 @@
         $( "body" ).append(finishScreen);
         $("#board").hide();
         $("#finish").show();
-        
+
         endOfGame = true;
     }
 
@@ -284,33 +286,29 @@
     //*************************************************************
     //  start button click - used for start game    ***************
 
-    $("#playerForm").submit(function(e) {
-        e.preventDefault();                              //  ensures that submit doesn't take place
-        if ( !validNames() ) {                           //  this is the 'failed' block
-            $(".err").show();                            //  display error message
+    $("#startButton").click(function() {
+        if ( validNames() ) {                            //  this is the 'validated' block
+            $("#err").hide ();                           //  initialize the board
+            $("#start").hide();                          //  hide the start screen
+            $("#board").show();                          //  show the game board
+            $(".box").removeClass('filled-1 filled-2');  //  remove the settings of any prior games
+
+            //add some pizazz - show the player names (not to mention extra credit)
+            var board = document.getElementById( "board" );
+            var ul = document.getElementsByClassName( "boxes" )[0];
+            var div = document.createElement("div");
+            div.className = 'playerNames';
+            var inner        = "<p class='player1name'>"+nameOfPlayer[1]+"</p>";
+            inner           += "<p class='player2name'>"+nameOfPlayer[2]+"</p><br>";
+            div.innerHTML = inner;
+            board.insertBefore( div, ul );
+
+            //update the player turn control
+            playerTurnControl();
+        } else {                                         //  names NOT validated
+            $("#err").show();                            //  display error message
             $(errMark).focus();                          //  set focus on first error field
-        } else {                                         //  this is the 'true' block
-            $(".err").hide();                            //  hide previous error messages
         }
-
-        //  initialize the board
-        $("#start").hide();                              //  hide the start screen
-        $("#board").show();                              //  show the game board
-        $(".box").removeClass('filled-1 filled-2');      //  remove the settings of any prior games
-
-        //add some pizazz - show the player names (not to mention extra credit)
-        var board = document.getElementById( "board" );
-        var ul = document.getElementsByClassName( "boxes" )[0];
-        var div = document.createElement("div");
-        div.className = 'playerNames';
-        var inner        = "<p class='player1name'>"+nameOfPlayer[1]+"</p>";
-        inner           += "<p class='player2name'>"+nameOfPlayer[2]+"</p><br>";
-        div.innerHTML = inner;
-        board.insertBefore( div, ul );
-        
-        //update the player turn control
-        playerTurnControl();
-
     });
 
     // Hover Event - show/remove current player game piece    ***********
@@ -353,9 +351,10 @@
         tieGame        = false;               
         AI             = false;               
         computersTurn  = false;               
-        namesValid     = true;                
+        test           = true;
         errMark        = '';                  
-        endOfGame      = false;               
+        endOfGame      = false;
+        beginGame      = true;
         //  reintialize the various states of cell selection
         selectedCellId = '';                  
         cellsPlayedAll = [];                  
@@ -373,7 +372,7 @@
     //*************************************************************
 
     //  initialize the game
-    setupGame();
+    if ( beginGame ) {setupGame();}
 
 //closing module pattern
 }());
