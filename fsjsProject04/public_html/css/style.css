@@ -104,12 +104,6 @@ form button {
     margin-top: 2.5em;
 }
 
-#errDiv p {
-    margin-top: 5em;
-    color:red;
-    animation: blinker 1s linear infinite;
-}
-
 /**********
     03  Game in Process
 **********/
