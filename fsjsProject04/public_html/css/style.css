@@ -197,12 +197,12 @@ form button {
     margin-right: 0;
 }
 
-.boxes .box-filled-1 {
+.boxes .played1 {
     background-color: #FFA000;
     background-image: url(../img/o.svg);
 }
 
-.boxes .box-filled-2 {
+.boxes .played2 {
     background-color: #3688C3;
     background-image: url(../img/x.svg);
 }
