@@ -1,16 +1,15 @@
-# <h2>FSJSProject04</h2>
+# TH04-Tic-Tac-Toe
+Full Stack Java Script Project 04 - Treehouse TechDegree
 
-<h3>Interactive Tic-Tac-Toe<h3>
+Interactive Tic-Tac-Toe Game
 
-<p>In this project, you'll build a functional, two-person tic-tac-toe game. You'll use the provided mockups, HTML, CSS and image files to create a game that requires players to add their names, take turns adding an X or O to the game board, and announce when the game ends. You'll need to keep track of the state of the game -- who's turn it is, where the X's and O's are on the board, and whether the game is a draw or, if not, who won and lost.</p>
+In this project, you'll build a functional, two-person tic-tac-toe game. You'll use the provided mockups, HTML, CSS and image files to create a game that requires players to add their names, take turns adding an X or O to the game board, and announce when the game ends. You'll need to keep track of the state of the game -- who's turn it is, where the X's and O's are on the board, and whether the game is a draw or, if not, who won and lost.
 
-<p>You'll use your knowledge of JavaScript data structures like arrays and objects as well as DOM-manipulation using jQuery or plain JavaScript to complete this project.</p>
+You'll use your knowledge of JavaScript data structures like arrays and objects as well as DOM-manipulation using jQuery or plain JavaScript to complete this project.
 
-<p>And, in order to make sure you're practicing good programming practices, use the module pattern to create your Tic-Tac-Toe game. In other words, you should wrap all of your code in a single global variable, or execute it all in a single self-invoking function. See the link in the project resources for a Treehouse workshop on the module pattern.</p>
+And, in order to make sure you're practicing good programming practices, use the module pattern to create your Tic-Tac-Toe game. In other words, you should wrap all of your code in a single global variable, or execute it all in a single self-invoking function. See the link in the project resources for a Treehouse workshop on the module pattern.
 
-<p><strong>NOTE: To get an "Exceeds Expectations" grade for this project, you'll need to "exceed" on every requirement that has an "Exceeds Expectations" option.</strong></p>
-
-<p>Download the project files. We've several files to help with this project</p>
+Download the project files. We've several files to help with this project
 <ul>
 <li>The mockups folder shows what the page should look like when it first loads, as a game is being played, and when the game is over.</li>
 <li>The html_snippets folder contains three files:</li><ul><li>start.txt includes the HTML for the opening screen. What players see when the page first loads.</li><li>board.txt includes the HTML of the Tic-Tac-Toe gameboard.</li><li>win.txt includes the HTML to display when the game is over. You'll need to modify this HTML for when player 0 or X wins or when there's a tie</li></ul>
@@ -46,18 +45,11 @@ Show the word "Winner" or "It's a Tie!"</li>
 <p>Add programming so that when a player pushes the "New Game" button, the board appears again, empty and a new game begins.
 Use the module pattern to wrap all of your JavaScript code into a single global variable or an immediately invoked function.</p>
 
-<p>NOTE: A good practice is to check your project for cross browser compatibility. Making sure that it looks and functions correctly in multiple (at least three) browsers is an important part of being a top-notch developer. If you want, leave a comment to the project reviewer about which browser(s) the project was checked to ensure they are seeing things as you have designed them.</p>
-<p>Some browser options:</p>
-<p>Google Chrome</p>
-<p>Mozilla Firefox</p>
-<p>Internet Explorer/Edge</p>
-<p>Safari</p>
+## Extra Credit
 
-<p><strong>Extra Credit</strong></p>
+To get an "exceeds" rating, you can expand on the project in the following ways:
 
-<p><strong>To get an "exceeds" rating, you can expand on the project in the following ways:</strong></p>
-
-<p><strong>2 steps</Strong></p>
+2 steps
 <ul>
         <li>Let a player add their name before the game starts</li>
         <ul>
