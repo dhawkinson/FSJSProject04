@@ -1,28 +1,27 @@
 // invoking the module pattern
 (function () {
-    // use strict
     'use strict';
 
     //  global variables ********************************************
 
-    var turnControl    = -1;                  //    the counter for determining whoseTurn
-    var whoseTurn      = 0;                   //    the determination of which player is up
-    var nameOfPlayer   = ['Tie Game','',''];  //    the array of player names
-    var winner         = '';                  //    the name of the winner or 'Tie Game'
-    var isWin          = false;               //    has the game been won -- by either player
-    var tieGame        = false;               //    is the game a time game
-    var AI             = false;               //    is the computer playing
-    var computersTurn  = false;               //    is it the computer's turn
-    var test           = false;               //    have the name's been properly entered (beginning screen)
-    var errMark        = '';                  //    if names don't validate, where to set focus
-    var beginGame      = true;                //    beginning of game indicator
-    var endOfGame      = false;               //    end-of-game indicator
+    let turnControl    = -1;                  //    the counter for determining whoseTurn
+    let whoseTurn      = 0;                   //    the determination of which player is up
+    let nameOfPlayer   = ['Tie Game','',''];  //    the array of player names
+    let winner         = '';                  //    the name of the winner or 'Tie Game'
+    let isWin          = false;               //    has the game been won -- by either player
+    let tieGame        = false;               //    is the game a time game
+    let AI             = false;               //    is the computer playing
+    let computersTurn  = false;               //    is it the computer's turn
+    let test           = false;               //    have the name's been properly entered (beginning screen)
+    let errMark        = '';                  //    if names don't validate, where to set focus
+    let beginGame      = true;                //    beginning of game indicator
+    let endOfGame      = false;               //    end-of-game indicator
     //  define the various states of cell selection
-    var selectedCellId = '';                  //    the currently selected cell id
-    var cellsPlayedAll = [];                  //    a list of all cells that have been played -- either player
-    var cellsPlayedOne = [];                  //    a list of all cells played by player one
-    var cellsPlayedTwo = [];                  //    a list of all cells played by player two
-    var cellsPlayedNow = [];                  //    a copy of cellsPlayedOne or cellsPlayedTwo (based on whoseTurn)
+    let selectedCellId = '';                  //    the currently selected cell id
+    let cellsPlayedAll = [];                  //    a list of all cells that have been played -- either player
+    let cellsPlayedOne = [];                  //    a list of all cells played by player one
+    let cellsPlayedTwo = [];                  //    a list of all cells played by player two
+    let cellsPlayedNow = [];                  //    a copy of cellsPlayedOne or cellsPlayedTwo (based on whoseTurn)
 
     // define the board area
     const allCellIds          = ['1a','1b','1c','2a','2b','2c','3a','3b','3c'];
@@ -38,14 +37,14 @@
     ];
 
     // create start screen div
-    var startDiv = document.createElement("div");
+    let startDiv = document.createElement("div");
     startDiv.id = 'start';
     startDiv.className = 'screen screen-start';
 
-    var startHead = document.createElement("header");
+    let startHead = document.createElement("header");
     startHead.innerHTML = "<h1>Tic Tac Toe</h1><br>";
     startDiv.append(startHead);
-    var formHtml  = "<form id='playerForm'>";
+    let formHtml  = "<form id='playerForm'>";
     formHtml     += "<label id='player1label' for='player1name'>Player 1 Name</label><br>";
     formHtml     += "<p class='playerName'><input type='text' id='player1name' name='player1name'></p>";
     formHtml     += "<label id='player2label' for='player2name'>Player 2 Name</label><br>";
@@ -53,24 +52,24 @@
     formHtml     += "<input type='checkbox' id='AI' name='checkbox'>";
     formHtml     += "<label id='AI' for='AI'> Play the Computer?</label><br><br>";
     formHtml     += "<button type='submit' id='startButton'>Start Game</button></form>";
-    var startForm = document.createElement("form");
+    let startForm = document.createElement("form");
     startForm.innerHTML = formHtml;
     startDiv.append(startForm);
 
     //  create error displays
-    var err = document.createElement("div");
+    let err = document.createElement("div");
     err.id = 'err';
     err.innerHTML = "<p style='color: red; animation: blinker 1s linear infinite;'><small>Required: 2 Names or Player 1 & Checkbox checked!</small></p>";
     startDiv.append(err);
 
     // add the newly created elements and content into the DOM
-    var boardDiv = document.getElementById("board");
+    let boardDiv = document.getElementById("board");
     document.body.insertBefore(startDiv, boardDiv);
     
     //  begin finish screen build - save for end of game
-    var finishScreen = document.createElement('div');
+    let finishScreen = document.createElement('div');
     finishScreen.setAttribute('id', 'finish');
-    var finishHead = document.createElement('header');
+    let finishHead = document.createElement('header');
     finishHead.innerHTML='<h1>Tic Tac Toe</h1><br>';
     finishScreen.append(finishHead);
 
@@ -87,8 +86,8 @@
         $("#board").hide();
         $("#finish").hide();
         //  identify cells by id & initiate cells as un-played
-        var lis = document.getElementsByClassName('box');
-        for ( var i = 0; i < 9; i++ ) {
+        let lis = document.getElementsByClassName('box');
+        for ( let i = 0; i < 9; i++ ) {
             lis[i].id = allCellIds[i];
             lis[i].className = 'box unfilled';
             lis[i].textContent = '';
@@ -170,8 +169,8 @@
         //      Will not get here unless player2 is the computer AND it is player2's turn
         //
         // locate unfilled cells
-        var listOfUnfilled = document.getElementsByClassName('unfilled');   // get list of remaining unfilled cells
-        var picked = Math.floor(Math.random() * listOfUnfilled.length);     // pick random cell from the list
+        let listOfUnfilled = document.getElementsByClassName('unfilled');   // get list of remaining unfilled cells
+        let picked = Math.floor(Math.random() * listOfUnfilled.length);     // pick random cell from the list
         selectedCellId = listOfUnfilled[picked].id;                         // get the id from the unfilled list
         $( '.boxes > li' ).each(function(index) {                           // adjust 'picked' to value in full list
             if ( selectedCellId === this.id ) {
@@ -180,7 +179,7 @@
         });
 
         // remove class 'unfilled', add class 'filled-2'
-        var selectedCell = $('.boxes > li:nth-child('+picked+')');
+        let selectedCell = $('.boxes > li:nth-child('+picked+')');
         selectedCell.removeClass('unfilled').addClass('filled-2');
 
         // update cells played
@@ -220,10 +219,10 @@
         //      when a match occurs between t/c, matches gets incremented
         //      to avoid a false win indication, matches is set to 0 with each new row
         //
-        for ( var r = 0; r < 8; r ++ ) {                                        //  rows in winningCombinations
-            var matches = 0;                                                    //  reset matches, each row
-            for ( var c = 0; c < 3; c ++ ) {                                    //  columns in winningCombinations
-                for ( var t = 0; t < cellsPlayedNow.length; t ++ ) {            //  cells played by player
+        for ( let r = 0; r < 8; r ++ ) {                                        //  rows in winningCombinations
+            let matches = 0;                                                    //  reset matches, each row
+            for ( let c = 0; c < 3; c ++ ) {                                    //  columns in winningCombinations
+                for ( let t = 0; t < cellsPlayedNow.length; t ++ ) {            //  cells played by player
                     if ( cellsPlayedNow[t] === winningCombinations[r][c] ) {
                         matches ++;
                     }
@@ -247,7 +246,7 @@
 
     function endGame(whoseTurn) {
         // complete finish screen build
-        var winnerDiv = document.createElement('div');
+        let winnerDiv = document.createElement('div');
         winnerDiv.setAttribute('id', 'winner');
 
         //  build finish screen specifics based on the results of the game
@@ -266,7 +265,7 @@
         }
         winnerDiv.innerHTML='<h2>'+winner+'</h2>';
         finishScreen.append(winnerDiv);
-        var finishButton = document.createElement('button');
+        let finishButton = document.createElement('button');
         finishButton.setAttribute('id', 'newGame');
         finishButton.setAttribute('type', 'button');
         finishButton.textContent = 'New Game';
@@ -294,11 +293,11 @@
             $(".box").removeClass('filled-1 filled-2');  //  remove the settings of any prior games
 
             //add some pizazz - show the player names (not to mention extra credit)
-            var board = document.getElementById( "board" );
-            var ul = document.getElementsByClassName( "boxes" )[0];
-            var div = document.createElement("div");
+            let board = document.getElementById( "board" );
+            let ul = document.getElementsByClassName( "boxes" )[0];
+            let div = document.createElement("div");
             div.className = 'playerNames';
-            var inner        = "<p class='player1name'>"+nameOfPlayer[1]+"</p>";
+            let inner        = "<p class='player1name'>"+nameOfPlayer[1]+"</p>";
             inner           += "<p class='player2name'>"+nameOfPlayer[2]+"</p><br>";
             div.innerHTML = inner;
             board.insertBefore( div, ul );
